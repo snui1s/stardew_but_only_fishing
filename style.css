@@ -1,0 +1,315 @@
+/* ==========================================================================
+   Cozy Fishing Valley - CSS Design System & Layout
+   ========================================================================== */
+
+/* Color Palette and Styling Tokens */
+:root {
+    --bg-app: #f6ebd9; /* Soft cozy cream beige background */
+    --wood-dark: #6e4e37; /* Warm dark wood */
+    --wood-light: #ab7a5e; /* Bright warm wood */
+    --wood-accent: #d2a379; /* Soft caramel accent */
+    --pastel-green: #a8d5ba; /* Soft pastel green */
+    --pastel-green-dark: #81b29a; /* Sage green */
+    --pastel-blue: #a2c2e8; /* Soft blue lake water */
+    --pastel-blue-dark: #3d5a80; /* Calm deep ocean blue */
+    --pastel-red: #e07a5f; /* Terracotta red warning tone */
+    --text-dark: #4a3e3d; /* Dark cozy brown-grey text */
+    --text-light: #fdfaf6; /* Soft warm white text */
+    --card-shadow: 0 12px 32px rgba(110, 78, 55, 0.15);
+    --border-radius-lg: 20px;
+    --border-radius-md: 12px;
+    --border-radius-sm: 8px;
+    --font-primary: 'Nunito', sans-serif;
+    --font-header: 'Fredoka', sans-serif;
+    --transition-speed: 0.25s;
+}
+
+/* Reset and Core Rules */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #3d2314; /* Cozy dark wood */
+    background-image: 
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 40px, transparent 40px, transparent 80px),
+        repeating-linear-gradient(90deg, transparent 0px, transparent 78px, rgba(0, 0, 0, 0.15) 78px, rgba(0, 0, 0, 0.15) 80px),
+        linear-gradient(135deg, #4a2c1d 0%, #2e180d 100%);
+    background-size: 100% 80px, 80px 100%, 100% 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-primary);
+}
+
+/* 100% Fullscreen Container */
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#game-container canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Floating Glassmorphic HUD overlay in the top right */
+.score-banner {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 9999; /* Float on top of everything! */
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background-color: rgba(253, 250, 246, 0.88); /* Translucent cream */
+    backdrop-filter: blur(8px); /* Beautiful premium glassmorphism blur! */
+    -webkit-backdrop-filter: blur(8px);
+    border: 3px solid var(--wood-dark);
+    border-radius: var(--border-radius-md);
+    padding: 10px 20px;
+    box-shadow: 0 8px 32px rgba(110, 78, 55, 0.3);
+    animation: slideIn 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.score-label {
+    font-weight: 800;
+    color: var(--wood-dark);
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+}
+
+.score-highlight {
+    color: var(--pastel-red);
+    font-size: 1.3rem;
+}
+
+.btn-reset {
+    background-color: var(--pastel-red);
+    color: var(--text-light);
+    border: 2px solid var(--wood-dark);
+    border-radius: var(--border-radius-sm);
+    padding: 6px 14px;
+    font-family: var(--font-header);
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 0px var(--wood-dark);
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+    background-color: #d66a4f;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0px var(--wood-dark);
+}
+
+.btn-reset:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0px var(--wood-dark);
+}
+
+/* Stats Panel & Dynamic Log list */
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0 10px 0;
+    border-bottom: 2px dashed rgba(110, 78, 55, 0.15);
+}
+
+.stat-label {
+    font-weight: 800;
+    color: var(--wood-dark);
+    font-size: 1rem;
+}
+
+.score {
+    color: var(--pastel-red);
+    font-family: var(--font-header);
+    font-size: 1.4rem;
+}
+
+/* Custom Wood Fishing Log list box */
+.fishing-log-box {
+    background-color: rgba(110, 78, 55, 0.05);
+    border: 3px solid var(--wood-dark);
+    border-radius: var(--border-radius-sm);
+    padding: 10px;
+    height: 310px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.empty-log-msg {
+    color: var(--wood-light);
+    font-size: 0.9rem;
+    text-align: center;
+    margin: auto;
+    font-style: italic;
+}
+
+/* Beautiful items in logging list */
+.log-item {
+    background: var(--text-light);
+    border: 2px solid var(--wood-light);
+    border-radius: var(--border-radius-sm);
+    padding: 6px 10px;
+    font-size: 0.88rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    animation: slideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.log-item .fish-badge {
+    background-color: var(--pastel-green);
+    color: var(--text-dark);
+    padding: 1px 6px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.log-item.hard .fish-badge {
+    background-color: var(--pastel-red);
+    color: var(--text-light);
+}
+
+.log-item.medium .fish-badge {
+    background-color: var(--wood-accent);
+    color: var(--text-dark);
+}
+
+/* Beautiful Cozy Buttons */
+.btn {
+    border: none;
+    padding: 10px 15px;
+    font-family: var(--font-header);
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    text-align: center;
+}
+
+.control-box {
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.btn-primary {
+    background-color: var(--pastel-red);
+    color: var(--text-light);
+    border: 3px solid var(--wood-dark);
+    border-radius: var(--border-radius-md);
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 12px;
+    box-shadow: 0 5px 0px var(--wood-dark);
+    transform: translateY(-2px);
+}
+
+.btn-primary:hover {
+    background-color: #d66a4f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0px var(--wood-dark);
+}
+
+.btn-primary:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0px var(--wood-dark);
+}
+
+/* Footer styling */
+.app-footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--wood-light);
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* Cozy Animations */
+@keyframes wiggle {
+    0% { transform: rotate(-1deg); }
+    100% { transform: rotate(1deg); }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar customized cozy */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(110, 78, 55, 0.05);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--wood-light);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--wood-dark);
+}
+
+/* Responsive Rules */
+@media (max-width: 1400px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .panel, .game-card {
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+    }
+    .panel {
+        height: auto;
+        min-height: 380px;
+    }
+    .fishing-log-box {
+        height: 180px;
+    }
+}
+@media (max-width: 850px) {
+    #game-container {
+        width: 100%;
+        height: 0;
+        padding-bottom: 75%; /* 4:3 Aspect Ratio */
+    }
+    .game-card {
+        padding: 5px;
+    }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Fishing Valley - 2D Adventure Fishing Minigame</title>
+    
+    <!-- Google Fonts for Cozy and Playful Style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    
+    <!-- Vanilla CSS for Premium UI styling -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Phaser 3 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+</head>
+<body>
+    <!-- Floating HUD Score Banner -->
+    <div class="score-banner">
+        <span class="score-label">🏝️ Cozy Fishing Valley • 🎣 ตกได้: <strong id="caught-count" class="score-highlight">0 ตัว</strong></span>
+        <button class="btn btn-reset" id="btn-reset">ล้างบันทึก (Reset Log)</button>
+    </div>
+
+    <!-- The 100% Fullscreen Game Container -->
+    <div id="game-container"></div>
+
+    <!-- Hidden log box to satisfy JavaScript bindings safely -->
+    <div id="log-box" style="display: none;"></div>
+
+    <!-- Main Game Logic -->
+    <script src="game.js"></script>
+</body>
+</html>
